@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter's Magical Path - Choose Your Adventure</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Dancing+Script:wght@500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #000000 100%);
+            min-height: 100vh;
+            color: #fff;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated snowfall background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent),
+                radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: snow 10s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        @keyframes snow {
+            0% { transform: translateY(-100px); }
+            100% { transform: translateY(100vh); }
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .story-card {
+            background: #2a2a2a;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 700px;
+            position: relative;
+        }
+        
+        .story-card::before {
+            content: '❄️';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 2rem;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        .story-card::after {
+            content: '✨';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+            animation: sparkle 2s ease-in-out infinite reverse;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.5); }
+            to { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+        
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .choice-btn {
+            background: linear-gradient(45deg, #228b22, #32cd32);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 139, 34, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .choice-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.5);
+            background: linear-gradient(45deg, #32cd32, #228b22);
+        }
+        
+        .choice-btn:nth-child(even) {
+            background: linear-gradient(45deg, #dc143c, #ff6347);
+            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+        }
+        
+        .choice-btn:nth-child(even):hover {
+            background: linear-gradient(45deg, #ff6347, #dc143c);
+            box-shadow: 0 6px 20px rgba(255, 99, 71, 0.5);
+        }
+        
+        .choice-btn:active {
+            transform: translateY(0);
+        }
+        
+        .choice-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+        
+        .choice-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            margin-top: 20px;
+        }
+        
+        .restart-btn:hover {
+            background: linear-gradient(45deg, #44a08d, #4ecdc4);
+            box-shadow: 0 6px 20px rgba(68, 160, 141, 0.4);
+        }
+        
+        .ending {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffd700;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .journey-summary {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.2), rgba(220, 20, 60, 0.2));
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .journey-summary h3 {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .choice-path {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+        
+        .choice-path:nth-child(odd) {
+            border-left-color: #32cd32;
+        }
+        
+        .choice-path:nth-child(even) {
+            border-left-color: #ff6347;
+        }
+        
+        .choice-number {
+            background: rgba(255, 215, 0, 0.8);
+            color: #000;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        .choice-text {
+            flex-grow: 1;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .story-card {
+                margin: 10px;
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .story-text {
+                font-size: 1.1rem;
+            }
+            
+            .choice-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="story-card fade-in" id="story-container">
+            <h1>Winter's Magical Path</h1>
+            <div class="story-text" id="story-text"></div>
+            <div class="choices" id="choices-container"></div>
+        </div>
+    </div>
+
+    <script>
+        // Story data structure with branching narrative
+        const storyData = {
+            start: {
+                text: "As winter's first snow blankets the enchanted forest, you find yourself at a crossroads. The ancient path splits into three directions, each glowing with a different magical aura. A gentle voice whispers on the wind: 'Choose wisely, brave traveler, for each path holds its own winter magic and destiny.'",
+                choices: [
+                    { text: "🌟 Follow the golden path towards the Starlight Grove", next: "starlight" },
+                    { text: "❄️ Take the crystalline path to the Frozen Lake", next: "lake" },
+                    { text: "🔥 Walk the ember path to the Cozy Cabin", next: "cabin" }
+                ]
+            },
+            starlight: {
+                text: "The golden path leads you to a grove where stars seem to dance just above the snow-covered trees. Ancient runes glow on the bark of the largest oak. As you approach, a constellation spirit materializes, offering you a choice that will determine your magical gift.",
+                choices: [
+                    { text: "🌌 Touch the runes to unlock starlight magic", next: "star_magic" },
+                    { text: "🕊️ Ask the spirit to grant you the gift of flight", next: "flight_gift" },
+                    { text: "🔮 Request wisdom to see the future", next: "wisdom_gift" }
+                ]
+            },
+            lake: {
+                text: "The crystalline path brings you to a perfectly frozen lake that mirrors the aurora dancing overhead. In the center of the ice, you spot something glowing beneath the surface. The ice is thick but you sense great power waiting below.",
+                choices: [
+                    { text: "⛸️ Skate gracefully across to investigate the glow", next: "ice_dance" },
+                    { text: "🔨 Carefully break through the ice to reach the treasure", next: "ice_break" },
+                    { text: "🧘 Sit and meditate to communicate with the lake spirit", next: "lake_spirit" }
+                ]
+            },
+            cabin: {
+                text: "The ember path leads to a cozy log cabin with smoke curling from its chimney. Through frosted windows, you see a warm fire crackling inside. An elderly woman opens the door, her eyes twinkling like stars. 'Welcome, dear traveler. I've been expecting you,' she says with a knowing smile.",
+                choices: [
+                    { text: "☕ Accept her invitation for hot cocoa and stories", next: "cocoa_wisdom" },
+                    { text: "🎁 Ask about the mysterious gift she's hiding behind her back", next: "mystery_gift" },
+                    { text: "🛠️ Offer to help her with winter preparations", next: "helpful_path" }
+                ]
+            },
+            star_magic: {
+                text: "As you touch the runes, starlight flows through your veins! You become the Guardian of Winter Stars, able to guide lost travelers with celestial light. The constellation spirit smiles as you ascend to join the eternal dance among the stars.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "✨ Celestial Guardian Ending"
+            },
+            flight_gift: {
+                text: "The spirit grants your wish, and crystalline wings of ice and starlight unfurl from your back! You soar above the winter landscape, becoming the Winter Wind who brings the first snow to sleeping villages and whispers magical dreams to children.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "🕊️ Winter Wind Ending"
+            },
+            wisdom_gift: {
+                text: "The spirit touches your forehead, and suddenly you can see all possible futures! You become the Winter Oracle, helping all who seek guidance through the cold months. Your wisdom brings hope and warmth to hearts throughout the land.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "🔮 Oracle of Winter Ending"
+            },
+            ice_dance: {
+                text: "You glide gracefully across the ice, and as you do, your movements create beautiful patterns that unlock the lake's magic! The aurora descends and wraps around you, transforming you into the Spirit of the Aurora, painting the winter sky with magnificent colors.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "🌌 Aurora Spirit Ending"
+            },
+            ice_break: {
+                text: "You carefully break through the ice and discover an ancient crown made of pure winter crystal! As you place it on your head, you become the Winter Monarch, ruler of all snow and ice, bringing balance to the seasons.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "👑 Winter Monarch Ending"
+            },
+            lake_spirit: {
+                text: "Through meditation, you connect with the ancient lake spirit who shares the wisdom of ages. You become the Keeper of Winter Memories, preserving the stories and magic of every snowflake that has ever fallen.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "📚 Memory Keeper Ending"
+            },
+            cocoa_wisdom: {
+                text: "Over hot cocoa, the wise woman shares ancient winter secrets and teaches you the magic of warmth and comfort. You become the Winter Hearth Guardian, ensuring no traveler is ever lost in the cold without finding shelter and warmth.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "🏠 Hearth Guardian Ending"
+            },
+            mystery_gift: {
+                text: "She presents you with a snow globe that contains an entire miniature winter world! As you shake it, you're pulled inside and become the Creator of Winter Worlds, able to craft magical snow realms for others to explore.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "🌍 World Creator Ending"
+            },
+            helpful_path: {
+                text: "Your kind heart and willingness to help touches the woman's heart. She reveals herself as the Winter Goddess and grants you the power to bring joy and assistance to all who need it during the cold months. You become the Spirit of Winter Kindness.",
+                choices: [
+                    { text: "🔄 Begin a new adventure", next: "start" }
+                ],
+                isEnding: true,
+                endingType: "💝 Kindness Spirit Ending"
+            }
+        };
+
+        let currentStoryKey = 'start';
+        let journeyChoices = [];
+
+        function displayStory(storyKey) {
+            const story = storyData[storyKey];
+            const storyContainer = document.getElementById('story-container');
+            const storyText = document.getElementById('story-text');
+            const choicesContainer = document.getElementById('choices-container');
+
+            // Add fade-in effect
+            storyContainer.classList.remove('fade-in');
+            setTimeout(() => {
+                storyContainer.classList.add('fade-in');
+            }, 50);
+
+            // Display story text
+            storyText.innerHTML = story.text;
+
+            // Clear previous choices
+            choicesContainer.innerHTML = '';
+
+            // Display ending type if it's an ending
+            if (story.isEnding) {
+                const endingDiv = document.createElement('div');
+                endingDiv.className = 'ending';
+                endingDiv.textContent = story.endingType;
+                choicesContainer.appendChild(endingDiv);
+
+                // Display journey summary
+                if (journeyChoices.length > 0) {
+                    const summaryDiv = document.createElement('div');
+                    summaryDiv.className = 'journey-summary';
+                    
+                    const summaryTitle = document.createElement('h3');
+                    summaryTitle.textContent = '🎄 Your Magical Journey 🎄';
+                    summaryDiv.appendChild(summaryTitle);
+
+                    journeyChoices.forEach((choice, index) => {
+                        const choiceDiv = document.createElement('div');
+                        choiceDiv.className = 'choice-path';
+                        
+                        const choiceNumber = document.createElement('div');
+                        choiceNumber.className = 'choice-number';
+                        choiceNumber.textContent = index + 1;
+                        
+                        const choiceText = document.createElement('div');
+                        choiceText.className = 'choice-text';
+                        choiceText.textContent = choice;
+                        
+                        choiceDiv.appendChild(choiceNumber);
+                        choiceDiv.appendChild(choiceText);
+                        summaryDiv.appendChild(choiceDiv);
+                    });
+
+                    choicesContainer.appendChild(summaryDiv);
+                }
+            }
+
+            // Create choice buttons
+            story.choices.forEach(choice => {
+                const button = document.createElement('button');
+                button.className = story.isEnding ? 'choice-btn restart-btn' : 'choice-btn';
+                button.textContent = choice.text;
+                button.addEventListener('click', () => {
+                    // Track the choice (but not for restart buttons)
+                    if (!story.isEnding) {
+                        journeyChoices.push(choice.text);
+                    } else {
+                        // Reset journey when restarting
+                        journeyChoices = [];
+                    }
+                    
+                    currentStoryKey = choice.next;
+                    displayStory(currentStoryKey);
+                });
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        // Initialize the game
+        displayStory(currentStoryKey);
+    </script>
+</body>
+</html>

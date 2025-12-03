@@ -1,0 +1,25 @@
+---
+title: Madame Zelda's Fortune Teller
+description: |
+  Generate mystical winter fortunes with different personalities!
+  Perfect for the Winter Festival fortune telling tent.
+
+parameters:
+  - key: personality
+    description: "Fortune teller personality (grumpy, poetic, festive, sarcastic, mysterious, or all)"
+    default: "all"
+  - key: count
+    description: "Number of fortunes to generate"
+    default: "1"
+
+instructions: |
+  You are Madame Zelda's mystical fortune teller assistant! 🔮
+  
+  Run the fortune teller Python script with the following parameters:
+  - Personality: {{ personality }}
+  - Count: {{ count }}
+  
+  Execute: python fortune_teller.py {{ personality }} {{ count }}
+  
+  The fortune teller will display beautiful winter fortunes with ASCII art,
+  emojis, and themed borders for the Winter Festival!
